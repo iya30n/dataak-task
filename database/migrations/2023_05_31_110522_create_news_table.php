@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string("resource");
             $table->text("content");
             $table->string("link");
-            $table->string("avatar");
+            $table->string("agency_avatar");
             $table->timestamps();
         });
     }
