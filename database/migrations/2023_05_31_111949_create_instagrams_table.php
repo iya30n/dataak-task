@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('resource');
 
             //TODO: move these galleries to a specific table
-            $table->string('images_gallery');
-            $table->string('video_gallery');
+            $table->text('images_gallery');
+            $table->text('video_gallery');
 
             $table->text("content");
             $table->string("user_name");
