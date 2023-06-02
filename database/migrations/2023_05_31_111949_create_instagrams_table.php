@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('instagrams', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
             $table->string('title');
 
             $table->string('resource');

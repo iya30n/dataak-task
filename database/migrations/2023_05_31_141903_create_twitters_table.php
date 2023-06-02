@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('twitters', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
             $table->text('content');
             $table->string("user_name");
             $table->string('resource');
