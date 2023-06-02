@@ -32,7 +32,7 @@ class NewsController extends Controller
         }
 
         if ($request->has("user")) {
-            $searchQueries[] = sprintf('(user_name:"%s" OR user_username:%s)', $request->user, $request->user);
+            $searchQueries[] = sprintf('user_name:"%s"', $request->user);
         }
 
         $query = implode(" AND ", $searchQueries);

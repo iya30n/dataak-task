@@ -12,8 +12,10 @@ Route::prefix("/news")->group(function() {
 
 Route::prefix("/instagram")->group(function() {
     Route::get("/addNew", [InstagramController::class, "addNew"]);
+    Route::get("/search", [InstagramController::class, "search"]);
 });
 
 Route::prefix("/twitter")->group(function() {
     Route::get("/addNew", [TwitterController::class, "addNew"]);
+    Route::get("/search", [TwitterController::class, "search"]);
 });
