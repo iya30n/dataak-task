@@ -76,13 +76,13 @@ class SearchInstagramTest extends TestCase
 
         $response = $this->get('/api/instagram/search?' . http_build_query([
             "title" => $sampleInstagram->title,
-            "resource" => $sampleInstagram->resource,
+            "resource" => $sampleInstagram->resource->name,
             "start_date" => $sampleInstagram->created_at->format("Y-m-d"),
         ]));
 
         $response->assertStatus(200);
 
         $response->assertJsonPath("data.0.title", $sampleInstagram->title);
-        $response->assertJsonPath("data.0.resource", $sampleInstagram->resource);
+        $response->assertJsonPath("data.0.resource_id", $sampleInstagram->resource_id);
     }
 }

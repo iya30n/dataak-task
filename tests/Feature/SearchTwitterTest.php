@@ -79,13 +79,13 @@ class SearchTwitterTest extends TestCase
 
         $response = $this->get('/api/twitter/search?' . http_build_query([
             "content" => implode(" ", $firstThreeWords),
-            "resource" => $sampleTwitter->resource,
+            "resource" => $sampleTwitter->resource->name,
             "start_date" => $sampleTwitter->created_at->format("Y-m-d"),
         ]));
 
         $response->assertStatus(200);
 
         $response->assertJsonPath("data.0.content", $sampleTwitter->content);
-        $response->assertJsonPath("data.0.resource", $sampleTwitter->resource);
+        $response->assertJsonPath("data.0.resource_id", $sampleTwitter->resource->id);
     }
 }

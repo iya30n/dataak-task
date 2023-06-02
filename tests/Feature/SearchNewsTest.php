@@ -77,13 +77,13 @@ class SearchNewsTest extends TestCase
 
         $response = $this->get('/api/news/search?' . http_build_query([
             "title" => $sampleNews->title,
-            "resource" => $sampleNews->resource,
+            "resource" => $sampleNews->resource->name,
             "start_date" => $sampleNews->created_at->format("Y-m-d"),
         ]));
 
         $response->assertStatus(200);
 
         $response->assertJsonPath("data.0.title", $sampleNews->title);
-        $response->assertJsonPath("data.0.resource", $sampleNews->resource);
+        $response->assertJsonPath("data.0.resource_id", $sampleNews->resource->id);
     }
 }
