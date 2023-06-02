@@ -27,4 +27,9 @@ class Resource extends Model
     {
         return $this->hasMany(Twitter::class);
     }
+
+    public function subscribers()
+    {
+        return $this->belongsToMany(User::class, "user_resources");
+    }
 }
