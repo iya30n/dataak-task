@@ -27,9 +27,9 @@ class SearchRequest extends FormRequest
         return [
             "start_date" => ["required_without_all:title,resource,user", "date_format:Y-m-d"],
             "end_date" => ["nullable", "date_format:Y-m-d"],
-            "title" => ["required_without_all:start_date,resource,user", "string", "max:70"],
-            "resource" => ["required_without_all:start_date,title,user", "string", "max:50"],
-            "user" => ["required_without_all:start_date,title,resource", "string", "max:50"],
+            "title" => ["required_without_all:start_date,resource,user", "string", "min:2", "max:70"],
+            "resource" => ["required_without_all:start_date,title,user", "string", "min:2", "max:50"],
+            "user" => ["required_without_all:start_date,title,resource", "string", "min:2", "max:50"],
         ];
     }
 
