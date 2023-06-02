@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SearchRequest;
+use App\Http\Requests\Twitter\SearchRequest;
 use App\Models\Twitter;
-use Illuminate\Http\Request;
 
 class TwitterController extends Controller
 {
@@ -24,8 +23,8 @@ class TwitterController extends Controller
             $searchQueries[] = sprintf("created_at:[%s TO %s]", $request->start_date, $endDate);
         }
 
-        if ($request->has("title")) {
-            $searchQueries[] = sprintf('title:"%s"', $request->title);
+        if ($request->has("content")) {
+            $searchQueries[] = sprintf('content:"%s"', $request->content);
         }
 
         if ($request->has("resource")) {
