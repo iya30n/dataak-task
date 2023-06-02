@@ -1,19 +1,21 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\InstagramController;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\TwitterController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
+// Route::get("/test", fn() => "hey");
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix("/news")->group(function() {
+    Route::get("/addNew", [NewsController::class, "addNew"]);
+    Route::get("/search", [NewsController::class, "search"]);
 });
+
+/* Route::prefix("/instagram")->group(function() {
+    Route::get("/addNew", [InstagramController::class, "addNew"]);
+});
+
+Route::prefix("/twitter")->group(function() {
+    Route::get("/addNew", [TwitterController::class, "addNew"]);
+}); */
