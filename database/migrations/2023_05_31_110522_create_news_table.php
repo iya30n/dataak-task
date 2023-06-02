@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id()->index();
             $table->string("title");
             $table->string("resource");
+            $table->string("user_name");
             $table->text("content");
             $table->string("link");
             $table->string("agency_avatar");

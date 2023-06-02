@@ -19,6 +19,7 @@ class NewsFactory extends Factory
         return [
             "title" => fake()->title(),
             "resource" => fake()->word(),
+            "user_name" => fake()->name(),
             "content" => fake()->text(250),
             "link" => fake()->url(),
             "agency_avatar" => fake()->imageUrl()
