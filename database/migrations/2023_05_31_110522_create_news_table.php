@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('news', function (Blueprint $table) {
             $table->id()->index();
             $table->string("title");
-            $table->string("resource");
+
+            $table->unsignedBigInteger("resource_id");
+            // TODO: put the $table->foreign() here.
+
             $table->string("user_name");
             $table->text("content");
             $table->string("link");

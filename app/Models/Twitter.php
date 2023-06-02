@@ -21,8 +21,13 @@ class Twitter extends Model
     {
         $array = $this->toArray();
  
-        // Customize the data array...
+        $array['resource'] = $this->resource->name;
  
         return $array;
+    }
+
+    public function resource()
+    {
+        return $this->belongsTo(Resource::class);
     }
 }

@@ -18,10 +18,8 @@ class InstagramFactory extends Factory
     {
         return [
            'title' => fake()->title(),
-           'resource' => fake()->word(),
            'images_gallery' => $this->makeGallery(4),
            'video_gallery' => $this->makeGallery(4),
-
            "content" => fake()->text(250),
            "user_name" => fake()->name(),
            "user_avatar" => fake()->image(),

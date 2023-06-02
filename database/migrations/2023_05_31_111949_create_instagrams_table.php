@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id()->index();
             $table->string('title');
 
-            $table->string('resource');
+            $table->unsignedBigInteger("resource_id");
 
             //TODO: move these galleries to a specific table
             $table->text('images_gallery');

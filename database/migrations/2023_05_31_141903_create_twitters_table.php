@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id()->index();
             $table->text('content');
             $table->string("user_name");
-            $table->string('resource');
+            $table->unsignedBigInteger("resource_id");
             $table->string('retweet_count');
             $table->string('image');
             $table->text("user_avatar");

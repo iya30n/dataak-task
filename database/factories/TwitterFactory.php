@@ -19,7 +19,6 @@ class TwitterFactory extends Factory
         return [
             'content' => fake()->text(),
             "user_name" => fake()->name(),
-            'resource' => fake()->word(),
             'retweet_count' => rand(0, 999),
             'image' => fake()->imageUrl(),
             "user_avatar" => fake()->imageUrl()
