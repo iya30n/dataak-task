@@ -3,6 +3,9 @@
 namespace App\Http\Requests\Twitter;
 
 use Illuminate\Foundation\Http\FormRequest;
+use \Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\ValidationException;
 
 class SearchRequest extends FormRequest
 {
@@ -28,5 +31,22 @@ class SearchRequest extends FormRequest
             "resource" => ["required_without_all:start_date,content,user", "string", "min:2", "max:50"],
             "user" => ["required_without_all:start_date,content,resource", "string", "min:2", "max:50"],
         ];
+    }
+
+    /**
+     * Handle a failed validation attempt.
+     *
+     * @param  \Illuminate\Contracts\Validation\Validator  $validator
+     * @return void
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    protected function failedValidation(Validator $validator)
+    {
+        $errors = (new ValidationException($validator))->errors();
+
+        throw new HttpResponseException(
+            response()->json(['errors' => \Arr::collapse($errors)], 422)
+        );
     }
 }
