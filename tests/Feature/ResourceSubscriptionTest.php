@@ -3,13 +3,10 @@
 namespace Tests\Feature;
 
 use App\Models\Resource;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
 class ResourceSubscriptionTest extends TestCase
 {
-    use DatabaseTransactions;
-
     public function test_user_subscribes_to_a_resource()
     {
         $resource = Resource::query()->firstOrCreate(['name' => 'test'], ['name' => 'test']);
