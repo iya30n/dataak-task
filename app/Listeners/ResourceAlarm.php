@@ -22,7 +22,7 @@ class ResourceAlarm
      */
     public function handle(object $event): void
     {
-        $resource = $event->news->resource;
+        $resource = $event->target->resource;
 
         foreach($resource->subscribers as $subscriber) {
             Mail::to($subscriber->email)->send(new ResourceAlarmEmail());

@@ -2,17 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SearchRequest;
 use App\Models\Instagram;
-use Illuminate\Http\Request;
+use App\Events\InstagramCreated;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\SearchRequest;
+use App\Http\Requests\Instagram\StoreInstagramRequest;
 
 class InstagramController extends Controller
 {
-    public function addNew()
+    public function store(StoreInstagramRequest $request)
     {
-        // create new record
-        // attach it to the elastic
-        // return response with done message and created record.
+        DB::beginTransaction();
+        try {
+            $instagram = Instagram::create($request->all());
+
+            event(new InstagramCreated($instagram));
+            
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $e->getMessage();
+            return response()->json(["message" => "Server Error!"], 500);
+        }
+        
+        return response()->json(["message" => "Instagram post created successfully."]);
     }
 
     public function search(SearchRequest $request)
