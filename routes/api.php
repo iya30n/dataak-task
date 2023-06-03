@@ -7,17 +7,17 @@ use App\Http\Controllers\TwitterController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix("/news")->group(function() {
-    Route::get("/addNew", [NewsController::class, "addNew"]);
+    Route::post("/", [NewsController::class, "store"]);
     Route::get("/search", [NewsController::class, "search"]);
 });
 
 Route::prefix("/instagram")->group(function() {
-    Route::get("/addNew", [InstagramController::class, "addNew"]);
+    Route::post("/", [InstagramController::class, "store"]);
     Route::get("/search", [InstagramController::class, "search"]);
 });
 
 Route::prefix("/twitter")->group(function() {
-    Route::get("/addNew", [TwitterController::class, "addNew"]);
+    Route::post("/", [TwitterController::class, "store"]);
     Route::get("/search", [TwitterController::class, "search"]);
 });
 

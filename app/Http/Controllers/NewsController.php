@@ -3,15 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\News;
+use App\Events\NewsCreated;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\SearchRequest;
+use App\Http\Requests\News\StoreNewsRequest;
 
 class NewsController extends Controller
 {
-    public function addNew()
+    public function store(StoreNewsRequest $request)
     {
-        // create new record
-        // attach it to the elastic
-        // return response with done message and created record.
+        DB::beginTransaction();
+        try {
+            $news = News::create($request->validated());
+
+            event(new NewsCreated($news));
+            
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(["message" => "Server Error!"], 500);
+        }
+        
+        return response()->json(["message" => "News created successfully."]);
     }
 
     public function search(SearchRequest $request)

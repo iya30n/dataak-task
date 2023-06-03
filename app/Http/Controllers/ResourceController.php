@@ -17,7 +17,6 @@ class ResourceController extends Controller
 
     public function subscribe(Request $request, Resource $resource)
     {
-        
         $user = User::find(1);
         if (!$user) {
             throw new Exception("run db:seed command first");
