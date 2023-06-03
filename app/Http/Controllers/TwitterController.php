@@ -2,16 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Twitter\SearchRequest;
 use App\Models\Twitter;
+use App\Events\TwitterCreated;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\Twitter\SearchRequest;
+use App\Http\Requests\Twitter\StoreTwitterRequest;
 
 class TwitterController extends Controller
 {
-    public function addNew()
+    public function store(StoreTwitterRequest $request)
     {
-        // create new record
-        // attach it to the elastic
-        // return response with done message and created record.
+        DB::beginTransaction();
+        try {
+            $twitter = Twitter::create($request->validated());
+
+            event(new TwitterCreated($twitter));
+            
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(["message" => "Server Error!"], 500);
+        }
+        
+        return response()->json(["message" => "Tweet created successfully."]);
     }
 
     public function search(SearchRequest $request)

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Events\InstagramCreated;
 use App\Events\NewsCreated;
+use App\Events\TwitterCreated;
 use App\Listeners\ResourceAlarm;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -25,6 +26,9 @@ class EventServiceProvider extends ServiceProvider
             ResourceAlarm::class
         ],
         InstagramCreated::class => [
+            ResourceAlarm::class
+        ],
+        TwitterCreated::class => [
             ResourceAlarm::class
         ]
     ];
