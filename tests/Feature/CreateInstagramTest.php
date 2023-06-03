@@ -26,15 +26,16 @@ class CreateInstagramTest extends TestCase
             "video_gallery" => [],
         ];
 
-        $response = $this->post('/api/instagram', $instagramData);
+        $this->get('/api/resource/1/subscribe');
 
+        $response = $this->post('/api/instagram', $instagramData);
         $response->assertStatus(200);
         $response->assertJson(["message" => "Instagram post created successfully."]);
 
         $this->assertDatabaseHas("instagrams", $instagramData);
 
         $users = Resource::find($resourceId)->subscribers;
-        Mail::assertQueued(ResourceAlarmEmail::class, function ($mail) use ($users) {
+        Mail::assertQueued(function(ResourceAlarmEmail $mail) use ($users) {
             return $mail->hasTo($users->pluck('email'));
         });
     }

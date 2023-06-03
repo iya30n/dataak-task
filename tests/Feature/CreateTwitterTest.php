@@ -24,8 +24,9 @@ class CreateTwitterTest extends TestCase
             "user_avatar" => "https://something.com/something",
         ];
 
-        $response = $this->post('/api/twitter', $twitterData);
+        $this->get('/api/resource/1/subscribe');
 
+        $response = $this->post('/api/twitter', $twitterData);
         $response->assertStatus(200);
         $response->assertJson(["message" => "Tweet created successfully."]);
 

@@ -24,8 +24,9 @@ class CreateNewsTest extends TestCase
             "agency_avatar" => "https://something.com/something",
         ];
 
-        $response = $this->post('/api/news', $newsData);
+        $this->get('/api/resource/1/subscribe');
 
+        $response = $this->post('/api/news', $newsData);
         $response->assertStatus(200);
         $response->assertJson(["message" => "News created successfully."]);
 
