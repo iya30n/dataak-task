@@ -18,8 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger("resource_id");
 
             //TODO: move these galleries to a specific table
-            $table->text('images_gallery')->default([]);
-            $table->text('video_gallery')->default([]);
+            $table->text('images_gallery')->default("[]");
+            $table->text('video_gallery')->default("[]");
 
             $table->text("content");
             $table->string("user_name");

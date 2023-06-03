@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 
 class ResourceController extends Controller
 {
+    const SubscriptionLimit = 10;
+
     public function list()
     {
         return response()->json(Resource::paginate());
@@ -24,6 +26,9 @@ class ResourceController extends Controller
         
         if (!Auth::check())
         Auth::login($user);
+
+        if ($user->resources->count() >= static::SubscriptionLimit)
+            return response()->json(["message" => "Sorry, you can't subscribe on more than 10 resources."], 403);
         
         if ($resource->subscribers()->whereId($user->id)->exists())
             return response()->json(["message" => "you've already subscribed."]);

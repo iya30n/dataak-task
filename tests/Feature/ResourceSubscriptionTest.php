@@ -3,12 +3,13 @@
 namespace Tests\Feature;
 
 use App\Models\Resource;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
 class ResourceSubscriptionTest extends TestCase
 {
+    use DatabaseTransactions;
+
     public function test_user_subscribes_to_a_resource()
     {
         $resource = Resource::query()->firstOrCreate(['name' => 'test'], ['name' => 'test']);
@@ -22,5 +23,18 @@ class ResourceSubscriptionTest extends TestCase
         $this->assertDatabaseHas('user_resources', ['user_id' => 1, 'resource_id' => $resource->id]);
 
         $resource->subscribers()->detach(1);
+    }
+
+    public function test_user_subscription_limit()
+    {
+        $resources = Resource::limit(10)->get();
+
+        foreach($resources as $resource) {
+            $this->get('/api/resource/' . $resource->id . '/subscribe');
+        }
+
+        $response = $this->get('/api/resource/11/subscribe');
+        $response->assertStatus(403);
+        $response->assertJson(["message" => "Sorry, you can't subscribe on more than 10 resources."]);
     }
 }
